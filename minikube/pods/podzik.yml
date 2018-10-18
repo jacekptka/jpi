@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-multi
+spec:
+  containers:
+  - name: nginx
+    image: nginx:latest
+    ports:
+    - containerPort: 8888
+  - name: nginx1
+    image: nginx:latest
+    ports:
+    - containerPort: 8880
+    command: ["/bin/bash"]
+    args: ["-c", "sed -i 's/80/880/g' /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"]
+  - name: nginx2
+    image: nginx:latest
+    ports:
+    - containerPort: 880
+    command: ["/bin/bash"]
+    args: ["-c", "sed -i 's/80/888/g' /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"]

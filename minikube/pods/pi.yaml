@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pi
+spec:
+  template:
+    spec:
+      containers:
+      - name: pi
+        image: perl
+        command: ["/bin/bash", "-ec", "echo -n \"scale=50;\"; seq 1 2 100 | xargs -n1 -I{} echo '(16*(1/5)^{}/{}-4*(1/239)^{}/{})'; sleep 5 ; done"]
+      restartPolicy: Never
+  backoffLimit: 4
+
+
